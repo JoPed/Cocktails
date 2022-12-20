@@ -1,0 +1,93 @@
+@import "variables";
+
+html {
+    box-sizing: border-box;
+    font-family: Tahoma, sans-serif;
+
+    background-color: $white;
+
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+.headlines {
+    text-align: center;
+}
+
+.card {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    row-gap: .75rem;
+    border-radius: 4px;
+    box-shadow: 1px 3px 5px rgba($black, .2);
+    background-color: $col_card_backgroundColor;
+    color: $col_SecondaryText;
+
+    .cardText {
+        padding-inline: 1rem;
+        line-height: 1.5;
+
+        span {
+            font-weight: 600;
+        }
+    }
+
+    a.cardText {
+        padding: 0;
+        color: $col_SecondaryText;
+        text-decoration: none;
+        display: block;
+        width: fit-content;
+        margin-inline: auto;
+    
+        svg {
+            font-size: 2rem;
+        }
+    
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+    
+            svg {
+                color: $orange;
+            }
+        }
+    }
+
+}
+
+
+
+// .fullDetailFigure img {
+//     object-fit: fill;
+//     max-height: 350px;
+//     border-radius: 4px 4px 0 0;
+// }
+
+
+// .fulldetails a.cardText {
+//     font-style: italic;
+//     margin-inline: 0;
+// }
+
+// .ingredientList {
+//     margin-top: .5rem;
+//     padding-left: 35px;
+
+//     li {
+//         line-height: 1.5;
+
+//         ul {
+//             padding-left: 20px;
+//         }
+//     }
+// }

@@ -49,6 +49,11 @@ h3 {
         padding-inline: 1rem;
         line-height: 1.5;
 
+        a.cardText{
+            display: inline-block;
+            padding-inline: 0;
+        }
+
         span {
             font-weight: 600;
         }
@@ -199,6 +204,62 @@ h3 {
 
 /* #endregion */
 
+//*Pagination
+.buttonRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.pageBtn{
+    display: block;
+    max-width: 50px;
+    min-height: 30px;
+    padding-inline: 5px;
+    margin-block: 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $col_MainText;
+    background-color: transparent;
+    border: $col_btn_border;
+    appearance: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: $col_SecondaryText;
+
+    &:hover {
+        background-color: $col_btn_backgroundColor_hover;
+        color: $col_btn_color_hover;
+    }
+
+    svg {
+        vertical-align: bottom;
+    }
+
+    &:disabled {
+        background-color: rgba($black, .5);
+        color: $col_btn_color_hover;
+        cursor: not-allowed;
+    }
+}
+
+.pageBtn:first-of-type{
+    margin-right: .25rem;
+}
+
+
+// Error
 .rowOfErrors {
     text-align: center;
+}
+
+
+//*Attribution - edamam logo
+#edamam-badge{
+    margin-inline: auto;
+    max-width: 200px; 
+
+    a{
+        display: inline-block;
+    }
 }

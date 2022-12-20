@@ -96,4 +96,4 @@ const CocktailDetails = () => {
     )
 }
 
-export default CocktailDetails
+export default CocktailDetails;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -12,9 +12,7 @@ import { useGetData } from '../hooks/useGetData';
 
 import { NavLink } from 'react-router-dom';
 
-import { FaCocktail } from 'react-icons/fa';
-
-import Pagination from '../components/Pagination';
+import { FaCocktail, FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 
 const CocktailsByIngredients = () => {
@@ -23,30 +21,61 @@ const CocktailsByIngredients = () => {
 
     const [ query, setQuery ] = useState( '' );
 
-    const [ startAtIndex, setStartAtIndex ] = useState( 0 );
+    const [paginationValue, setPaginationValue] = useState(0);
 
-    const [ endAtIndex, setEndAtIndex ] = useState( 10 );
-
-    const [ itemsPerPage, setItemsPerPage ] = useState( 10 );
+    const firstSubmit = useRef(true);
 
     const handleSubmit = ( e ) => {
 
         e.preventDefault();
 
-        getData( 'https://edamam-recipe-search.p.rapidapi.com/search', {
+        callAPI( 'https://edamam-recipe-search.p.rapidapi.com/search' );
+
+        firstSubmit.current = false;
+
+    }
+
+    const callAPI = ( url ) => {
+
+        getData( url, {
             'X-RapidAPI-Key': import.meta.env.VITE_RAPIDAPIKEY,
             'X-RapidAPI-Host': 'edamam-recipe-search.p.rapidapi.com'
         },
             {
-                q: query,
-                from: startAtIndex,
-                to: endAtIndex
+                'q': query,
+                'from': paginationValue,
+                'to': paginationValue + 10,
+                'dishType': 'Alcohol-cocktail',
+                'dishType': 'Drinks'
             } )
+    }
+
+    const prevClick = () => {
+        if(paginationValue === 0) {return }
+
+        setPaginationValue(paginationValue - 10);
+    }
+
+    const nextClick = () => {
+        console.log('first')
+        setPaginationValue(paginationValue + 10);
+    }
+
+    const handleClick = () => {
+
+        console.log('first')
 
     }
 
-    // First filter out the International Bartenders Association Official Cocktails tag, the map out the rest
-    // cocktail.tags.filter(tags => tags.tag.id != 'iba').map(t => t.tag.name).join(', ')
+    useEffect(() => {
+
+        // Don't run this the first time 
+        if(!firstSubmit.current){
+            callAPI('https://edamam-recipe-search.p.rapidapi.com/search');
+        }
+
+
+    }, [paginationValue])
 
     return (
         <Container fluid="lg">
@@ -74,8 +103,8 @@ const CocktailsByIngredients = () => {
 
             <Row>
 
-                { data && data.hits.slice( startAtIndex * itemsPerPage, ( startAtIndex * itemsPerPage ) + itemsPerPage ).map( ( cocktail, i ) => (
-                    <Col md={ { span: 2, offset: i === 0 || i === 5 ? 1 : 0 } } key={ 'cocktail' + i } className="px-2 mb-3">
+                { data && data.hits.map( ( cocktail, i ) => (
+                    <Col md={ { span: 2, offset: i === 0 || i === 5 || i === 10 || i === 15 ? 1 : 0 } } key={ 'cocktail' + i } className="px-2 mb-3">
 
                         <section className="card card--drinks fulldetails">
 
@@ -87,6 +116,8 @@ const CocktailsByIngredients = () => {
                             </h3>
                             <p className="cardText"><span>Kategori: </span> { cocktail.recipe.dishType[ 0 ].slice( 0, 1 ).toUpperCase() + cocktail.recipe.dishType[ 0 ].slice( 1 ) } </p>
 
+                            <p className="cardText"><span>Kilde: </span> <a className="cardText" target="_blank" href={cocktail.recipe.url}>{cocktail.recipe.source}</a> </p>
+
                             <NavLink to="/cocktaildetails" className="cardText" state={ { cocktailDetails: cocktail } }> <FaCocktail /> Detaljer</NavLink>
 
 
@@ -94,16 +125,37 @@ const CocktailsByIngredients = () => {
                     </Col>
                 ) )
                 }
-                {
 
+                {
                     data &&
-                    <Pagination
-                        currentPage={ startAtIndex }
-                        setCurrentPage={ setStartAtIndex }
-                        itemsPerPage={ itemsPerPage }
-                        itemsTotal={ data.count > 100 ? 100 : data.count }
-                    />
+
+                    <Row>
+                        <Col className="buttonRow">
+                            <button
+                                className="pageBtn"
+                                disabled={ data.from === 0 ? true : false }
+                                onClick={ () => prevClick() }>
+                                <FaAngleLeft />
+                            </button>
+
+                            {/* On the free plan of the api you cannot go above 100 elements shown */}
+                            <button
+                                className="pageBtn"
+                                disabled={ data.to >= 100 }
+                                onClick={ () => nextClick() }>
+                                <FaAngleRight />
+                            </button>
+                        </Col>
+
+                    </Row>
+
                 }
+            </Row>
+
+            <Row>
+                <Col>
+                    <div id="edamam-badge" data-color="transparent"></div>
+                </Col>
             </Row>
 
         </Container>

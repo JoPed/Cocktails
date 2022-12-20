@@ -20,9 +20,22 @@ html {
     text-align: center;
 }
 
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+h3 {
+    font-size: clamp(1.2rem, calc(.5vw + .5rem), 1.4rem);
+}
+
+/* #region  Cocktail card */
 .card {
     display: flex;
     height: 100%;
+    max-width: 300px;
+    margin-inline: auto;
     flex-direction: column;
     justify-content: space-between;
     padding-bottom: 1rem;
@@ -42,52 +55,150 @@ html {
     }
 
     a.cardText {
-        padding: 0;
         color: $col_SecondaryText;
         text-decoration: none;
         display: block;
         width: fit-content;
-        margin-inline: auto;
-    
+        font-style: italic;
+        margin-inline: 0;
+
         svg {
             font-size: 2rem;
         }
-    
+
         &:hover {
             text-decoration: underline;
             cursor: pointer;
-    
-            svg {
-                color: $orange;
-            }
         }
     }
 
 }
 
+.fullDetailFigure img {
+    object-fit: fill;
+    border-radius: 4px 4px 0 0;
+}
 
+.ingredientList,
+.nutritionList {
+    margin-top: .5rem;
+    padding-left: 35px;
 
-// .fullDetailFigure img {
-//     object-fit: fill;
-//     max-height: 350px;
-//     border-radius: 4px 4px 0 0;
-// }
+    li {
+        line-height: 1.5;
 
+        ul {
+            padding-left: 20px;
+        }
+    }
+}
 
-// .fulldetails a.cardText {
-//     font-style: italic;
-//     margin-inline: 0;
-// }
+/* #endregion */
 
-// .ingredientList {
-//     margin-top: .5rem;
-//     padding-left: 35px;
+/* #region  Accordion */
+.accordionList {
+    display: none;
+}
 
-//     li {
-//         line-height: 1.5;
+.accordion {
+    background-color: transparent;
+    border: 2px solid $col_input_border;
+    color: $col_SecondaryText;
+    cursor: pointer;
+    padding: .5rem;
+    width: 90%;
+    margin-inline: auto;
+    text-align: left;
+    outline: none;
+    transition: .4s;
+    border-radius: .25rem;
 
-//         ul {
-//             padding-left: 20px;
-//         }
-//     }
-// }
+    &::after {
+        content: '\002B';
+        color: $col_SecondaryText;
+        font-weight: bold;
+        float: right;
+        margin-left: .4rem;
+    }
+
+    &.active:after {
+        content: '\2212'
+    }
+}
+
+/* #endregion */
+
+/* #region Form  */
+.form {
+    width: 100%;
+  }
+  
+  .labels {
+    font-weight: 600;
+    display: block;
+    width: fit-content;
+    margin-bottom: .5rem;
+    margin-inline: auto;
+  }
+  
+  .formInput {
+    display: block;
+    width: 90%;
+    margin-inline: auto;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $col_MainText;
+    background-color: transparent;
+    border: 1px solid $col_input_border;
+    appearance: none;
+    border-radius: .25rem;
+    color: $col_SecondaryText;
+  
+    &:focus {
+      outline: 0;
+      box-shadow: 0 0 0 .3rem $col_formInput_boxShadow;
+  
+      border-color: $col_formInput_border;
+    }
+  
+    &.search {
+      width: 33%;
+      margin-bottom: 1.5rem;
+    }
+  
+  }
+  
+  .news .formInput.search{
+    width: 50%;
+  }
+  
+  .searchBtn {
+    display: block;
+    min-width: 100px;
+    min-height: 30px;
+    padding-inline: 5px;
+    margin-inline: auto;
+    margin-block: 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $col_MainText;
+    background-color: transparent;
+    border: $col_btn_border;
+    appearance: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: $col_SecondaryText;
+  
+    &:hover {
+      color: $col_btn_color_hover;
+      background-color: $col_btn_backgroundColor_hover;
+    }
+  }
+
+/* #endregion */
+
+.rowOfErrors {
+    text-align: center;
+}

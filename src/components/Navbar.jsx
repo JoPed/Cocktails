@@ -19,7 +19,7 @@ const Navbar = () => {
         <ul className={ isMenuOpen ? "navbar__menu active" : "navbar__menu" }>
           <li>
             <NavLink to="/" onClick={ closeMenu } >
-              Cocktails by Ingredients
+              Cocktails
             </NavLink>
           </li>
           

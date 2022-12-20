@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -10,26 +10,43 @@ import Loader from '../components/Loader';
 
 import { useGetData } from '../hooks/useGetData';
 
+import { NavLink } from 'react-router-dom';
+
+import { FaCocktail } from 'react-icons/fa';
+
+import Pagination from '../components/Pagination';
+
 
 const CocktailsByIngredients = () => {
 
     const { error, loading, data, getData } = useGetData();
 
-    const [ query, setQuery ] = useState( 'gin' )
+    const [ query, setQuery ] = useState( '' );
 
-    useEffect( () => {
+    const [ startAtIndex, setStartAtIndex ] = useState( 0 );
 
-        getData( 'https://drinks-digital1.p.rapidapi.com/v1/cocktails/ingredients', {
+    const [ endAtIndex, setEndAtIndex ] = useState( 10 );
+
+    const [ itemsPerPage, setItemsPerPage ] = useState( 10 );
+
+    const handleSubmit = ( e ) => {
+
+        e.preventDefault();
+
+        getData( 'https://edamam-recipe-search.p.rapidapi.com/search', {
             'X-RapidAPI-Key': import.meta.env.VITE_RAPIDAPIKEY,
-            'X-RapidAPI-Host': 'drinks-digital1.p.rapidapi.com'
+            'X-RapidAPI-Host': 'edamam-recipe-search.p.rapidapi.com'
         },
             {
-                filters: query,
-                type: 'by_id',
-                limit: '25'
+                q: query,
+                from: startAtIndex,
+                to: endAtIndex
             } )
 
-    }, [] )
+    }
+
+    // First filter out the International Bartenders Association Official Cocktails tag, the map out the rest
+    // cocktail.tags.filter(tags => tags.tag.id != 'iba').map(t => t.tag.name).join(', ')
 
     return (
         <Container fluid="lg">
@@ -41,46 +58,51 @@ const CocktailsByIngredients = () => {
             { loading && <Loader /> }
 
             <Row>
+                <Col xs={ 12 } md={ { span: 6, offset: 3 } }>
 
-                { data && data.map( cocktail => (
-                    <Col md={ { span: 3, offset: 0 } } key={cocktail.id}>
+                    <form className="form" onSubmit={ handleSubmit }>
+
+                        <label className="labels" htmlFor="input1">Søg efter ingredienser</label>
+                        <input type="text" id="input1" className="formInput search" onInput={ ( e ) => setQuery( e.target.value ) } />
+
+                        <button className="searchBtn">Søg</button>
+
+
+                    </form>
+                </Col>
+            </Row>
+
+            <Row>
+
+                { data && data.hits.slice( startAtIndex * itemsPerPage, ( startAtIndex * itemsPerPage ) + itemsPerPage ).map( ( cocktail, i ) => (
+                    <Col md={ { span: 2, offset: i === 0 || i === 5 ? 1 : 0 } } key={ 'cocktail' + i } className="px-2 mb-3">
 
                         <section className="card card--drinks fulldetails">
 
-                            {/* <figure className="fullDetailFigure"><img src={ data.drinks[ 0 ].strDrinkThumb } alt={ data.strDrink } /></figure> */ }
-                            <h3 className="cardText">{ cocktail.cocktail_name }</h3>
-                            <p className="cardText"><span>Alkohol?:</span> { cocktail.alcoholic  }</p>
-
-                            <div className="cardText"><span>Ingredients:</span>
-                                <ul className="ingredientList">
-                                    {
-                                        getIngredients().map( ( ingr, index ) => (
-                                            <li key={ "strIngredient" + index }
-                                            >
-                                                { ingr }
-
-                                                <ul>
-                                                    <li>{ getMeasurement()[ index ] }</li>
-                                                </ul>
-
-                                            </li>
-                                        ) )
-                                    }
-                                </ul>
-                            </div>
-
-                            <p className="cardText"><span>Instruction:</span> <br />{ data.drinks[ 0 ].strInstructions }
-                                <br />
+                            <figure className="fullDetailFigure"><img src={ cocktail.recipe.image } alt={ cocktail.recipe.label } /></figure>
+                            <h3 className="cardText">Cocktail:
                                 {
-                                    data.drinks[ 0 ].strVideo && <a className="cardText" href={ data.drinks[ 0 ].strVideo } target="_blank"><RxVideo /> </a>
+                                    cocktail.recipe.label.includes( '{' ) ? ' ' + cocktail.recipe.label.split( '{' ).pop().split( '}' )[ 1 ] : ' ' + cocktail.recipe.label
                                 }
-                            </p>
+                            </h3>
+                            <p className="cardText"><span>Kategori: </span> { cocktail.recipe.dishType[ 0 ].slice( 0, 1 ).toUpperCase() + cocktail.recipe.dishType[ 0 ].slice( 1 ) } </p>
+
+                            <NavLink to="/cocktaildetails" className="cardText" state={ { cocktailDetails: cocktail } }> <FaCocktail /> Detaljer</NavLink>
+
 
                         </section>
                     </Col>
                 ) )
+                }
+                {
 
-
+                    data &&
+                    <Pagination
+                        currentPage={ startAtIndex }
+                        setCurrentPage={ setStartAtIndex }
+                        itemsPerPage={ itemsPerPage }
+                        itemsTotal={ data.count > 100 ? 100 : data.count }
+                    />
                 }
             </Row>
 

@@ -4,6 +4,7 @@ import './scss/App.scss';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import CocktailsByIngredients from './pages/CocktailsByIngredients';
+import CocktailDetails from './pages/CocktailDetails';
 
 import Navbar from './components/Navbar';
 
@@ -17,6 +18,7 @@ function App () {
       <Routes>
 
         <Route index element={<CocktailsByIngredients />} />
+        <Route path="/cocktaildetails" element={<CocktailDetails />} />
 
       </Routes>
 

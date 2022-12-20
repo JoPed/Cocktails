@@ -1,0 +1,68 @@
+@import "variables";
+
+.pagination {
+
+    margin-bottom: 25px;
+    height: 35px;
+
+    ul {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        list-style-type: none;
+    }
+}
+
+.pageItem.activePage .pagination__btn {
+    z-index: 1;
+    color: $col_MainText;
+    background-color: $black;
+    border-color: $black;
+}
+
+ .pagination__btn {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    line-height: 1.25;
+    color: $col_SecondaryText;
+    background-color: $white;
+    box-shadow: $col_primary_boxShadow;
+    border: 1px solid #dee2e6;
+    cursor: pointer;
+    font-weight: 600;
+    appearance: none;
+    font-size: 1.2rem;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    
+}
+
+.pagination__prev,  .pagination__next{
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    line-height: 1.25;
+    color: $col_SecondaryText;
+    background-color: $white;
+    box-shadow: $col_primary_boxShadow;
+    border: 1px solid #dee2e6;
+    cursor: pointer;
+    font-weight: 600;
+    appearance: none;
+    font-size: 1.2rem;
+    border-radius: 50%;
+
+    
+}
+
+svg.pagination__prev, svg.pagination__next{
+    width: 40px;
+    height: 40px;
+
+    &.disabled {
+        background-color: rgba($black, .5);
+        cursor: not-allowed;
+    }
+}

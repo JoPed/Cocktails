@@ -61,12 +61,6 @@ const CocktailsByIngredients = () => {
         setPaginationValue(paginationValue + 10);
     }
 
-    const handleClick = () => {
-
-        console.log('first')
-
-    }
-
     useEffect(() => {
 
         // Don't run this the first time 
@@ -101,10 +95,10 @@ const CocktailsByIngredients = () => {
                 </Col>
             </Row>
 
-            <Row>
+            <Row className="mb-3">
 
                 { data && data.hits.map( ( cocktail, i ) => (
-                    <Col md={ { span: 2, offset: i === 0 || i === 5 || i === 10 || i === 15 ? 1 : 0 } } key={ 'cocktail' + i } className="px-2 mb-3">
+                    <Col xs={12} md={6} lg={ 4} xxl={ { span: 2, offset: i === 0 || i === 5 || i === 10 || i === 15 ? 1 : 0 } } key={ 'cocktail' + i } className="px-2 mb-3">
 
                         <section className="card card--drinks fulldetails">
 
@@ -152,11 +146,11 @@ const CocktailsByIngredients = () => {
                 }
             </Row>
 
-            <Row>
+            {/* <Row>
                 <Col>
                     <div id="edamam-badge" data-color="transparent"></div>
                 </Col>
-            </Row>
+            </Row> */}
 
         </Container>
     )

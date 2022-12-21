@@ -22,6 +22,16 @@ const Navbar = () => {
               Cocktails
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/guide" onClick={ closeMenu } >
+              Guide
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/about" onClick={ closeMenu } >
+              Om Projektet
+            </NavLink>
+          </li>
           
         </ul>
 

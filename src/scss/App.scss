@@ -16,6 +16,20 @@ html {
     padding: 0;
 }
 
+//*Setting up so the footer will always be on the bottom 
+html,
+body,
+#root {
+    min-height: 100vh;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+}
+
+
+//*Main elements
 .headlines {
     text-align: center;
 }
@@ -28,6 +42,10 @@ img {
 
 h3 {
     font-size: clamp(1.2rem, calc(.5vw + .5rem), 1.4rem);
+}
+
+.container {
+    min-height: 75vh;
 }
 
 /* #region  Cocktail card */
@@ -49,7 +67,7 @@ h3 {
         padding-inline: 1rem;
         line-height: 1.5;
 
-        a.cardText{
+        a.cardText {
             display: inline-block;
             padding-inline: 0;
         }
@@ -117,6 +135,7 @@ h3 {
     outline: none;
     transition: .4s;
     border-radius: .25rem;
+    font-size: clamp(.6rem, calc(.55rem + .3vw), 1rem);
 
     &::after {
         content: '\002B';
@@ -136,17 +155,17 @@ h3 {
 /* #region Form  */
 .form {
     width: 100%;
-  }
-  
-  .labels {
+}
+
+.labels {
     font-weight: 600;
     display: block;
     width: fit-content;
     margin-bottom: .5rem;
     margin-inline: auto;
-  }
-  
-  .formInput {
+}
+
+.formInput {
     display: block;
     width: 90%;
     margin-inline: auto;
@@ -160,26 +179,26 @@ h3 {
     appearance: none;
     border-radius: .25rem;
     color: $col_SecondaryText;
-  
+
     &:focus {
-      outline: 0;
-      box-shadow: 0 0 0 .3rem $col_formInput_boxShadow;
-  
-      border-color: $col_formInput_border;
+        outline: 0;
+        box-shadow: 0 0 0 .3rem $col_formInput_boxShadow;
+
+        border-color: $col_formInput_border;
     }
-  
+
     &.search {
-      width: 33%;
-      margin-bottom: 1.5rem;
+        width: 50%;
+        margin-bottom: 1.5rem;
     }
-  
-  }
-  
-  .news .formInput.search{
+
+}
+
+.news .formInput.search {
     width: 50%;
-  }
-  
-  .searchBtn {
+}
+
+.searchBtn {
     display: block;
     min-width: 100px;
     min-height: 30px;
@@ -195,23 +214,23 @@ h3 {
     border-radius: 4px;
     cursor: pointer;
     color: $col_SecondaryText;
-  
+
     &:hover {
-      color: $col_btn_color_hover;
-      background-color: $col_btn_backgroundColor_hover;
+        color: $col_btn_color_hover;
+        background-color: $col_btn_backgroundColor_hover;
     }
-  }
+}
 
 /* #endregion */
 
 //*Pagination
-.buttonRow{
+.buttonRow {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.pageBtn{
+.pageBtn {
     display: block;
     max-width: 50px;
     min-height: 30px;
@@ -243,7 +262,7 @@ h3 {
     }
 }
 
-.pageBtn:first-of-type{
+.pageBtn:first-of-type {
     margin-right: .25rem;
 }
 
@@ -255,11 +274,64 @@ h3 {
 
 
 //*Attribution - edamam logo
-#edamam-badge{
+#edamam-badge {
     margin-inline: auto;
-    max-width: 200px; 
+    max-width: 200px;
 
-    a{
+    a {
         display: inline-block;
+    }
+}
+
+//*Guide
+.guideList,
+.aboutList {
+    text-align: center;
+    list-style-position: inside;
+    margin-bottom: 2rem;
+
+    li {
+        line-height: 1.8;
+    }
+
+    ul {
+        padding-left: 25px;
+    }
+}
+
+.guideList > li {
+    font-weight: bold;
+}
+
+.guideList > li > ul > li {
+    font-weight: normal;
+    font-style: italic;
+    font-size: .95rem;
+}
+
+//*About
+.about {
+    line-height: 1.5;
+}
+
+.aboutList {
+    text-align: left;
+    padding-left: 25px;
+
+    ol {
+        padding-left: 35px;
+    }
+}
+
+.about a {
+    color: $col_SecondaryText;
+    text-decoration: none;
+    display: inline-block;
+    width: fit-content;
+    font-style: italic;
+    margin-inline: 0;
+
+    &:hover {
+        text-decoration: underline;
     }
 }

@@ -27,8 +27,14 @@ const Footer = () => {
 
                 </Col>
 
-                <Col xs={ { span: 12 } } lg={ { span: 4 } } className="d-flex flex-column justify-content-center">
+                <Col xs={ { span: 12 } } lg={ { span: 4 } } className="d-flex flex-column justify-content-between">
                     <div id="edamam-badge" data-color="transparent"></div>
+
+                    <Row>
+                        <Col>
+                            <p><span>Website by</span> <span>Jonas Bjørn Pedersen &copy;</span></p>
+                        </Col>
+                    </Row>
 
                 </Col>
 

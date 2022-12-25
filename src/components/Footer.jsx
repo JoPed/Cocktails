@@ -11,7 +11,7 @@ const Footer = () => {
         <footer className="footer">
 
             <Row>
-                <Col xs={ { span: 12 } } lg={ { span: 4 } } >
+                <Col xs={ { span: 12 } } sm={ { span: 6 } } lg={4} >
 
                     <section className="contactInfo">
 
@@ -27,7 +27,7 @@ const Footer = () => {
 
                 </Col>
 
-                <Col xs={ { span: 12 } } lg={ { span: 4 } } className="d-flex flex-column justify-content-between">
+                <Col xs={ { span: 12 } } md={ { span: 4 } } className="attribution">
                     <div id="edamam-badge" data-color="transparent"></div>
 
                     <Row>
@@ -38,7 +38,7 @@ const Footer = () => {
 
                 </Col>
 
-                <Col xs={ { span: 12 } } lg={ { span: 4 } } >
+                <Col xs={ { span: 12 } } sm={ { span: 6 } } lg={4} >
 
                     <section className="socials">
                         <h2>Links</h2>
